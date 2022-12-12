@@ -10,27 +10,25 @@ import 'package:flutter_application_firebasenew/users1.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RedditComment extends StatefulWidget {
-  const RedditComment ({
+  const RedditComment({
     super.key,
-    required this.userPost, 
-
+    required this.userPost,
   });
 
   final UserPost userPost;
 
-
   @override
-  State<RedditComment > createState() => _RedditCommentState();
+  State<RedditComment> createState() => _RedditCommentState();
 }
 
 class _RedditCommentState extends State<RedditComment> {
   final user = FirebaseAuth.instance.currentUser!;
-  
+
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(40, 109, 108, 108), 
+      backgroundColor: Color.fromARGB(40, 109, 108, 108),
       appBar: AppBar(
-          backgroundColor: Color.fromARGB(228, 0, 0, 0),
+        backgroundColor: Color.fromARGB(228, 0, 0, 0),
         bottomOpacity: 0.0,
         elevation: 0.0,
         title: const Text(
@@ -69,26 +67,21 @@ class _RedditCommentState extends State<RedditComment> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               userline(widget.userPost),
-               Title(widget.userPost),
-                Body(widget.userPost),
-                
-               Container(
-                  child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: FadeInImage.assetNetwork(
-                placeholder: 'assets/images/loading.gif',
-                image: widget.userPost.postimg,
-                height: 250,
-              
-              ),
-            ),
+              userline(widget.userPost),
+              Title(widget.userPost),
+              Body(widget.userPost),
+              Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: 'assets/images/loading.gif',
+                    image: widget.userPost.postimg,
+                    height: 250,
+                  ),
                 ),
-                buttons(widget.userPost),
-                
-                fetchComments(),
-          
-            
+              ),
+              buttons(widget.userPost),
+              fetchComments(),
             ],
           ),
         ],
@@ -96,88 +89,50 @@ class _RedditCommentState extends State<RedditComment> {
     );
   }
 
- Widget Title(UserPost userpost) => Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
+  Widget Title(UserPost userpost) => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-         
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
             child: Column(
-             
               children: [
-                Text(
-                  userpost.contentpost,
-                  style: nametxtStyle
-                  
-                  
-                  
-                  
+                Text(userpost.contentpost, style: nametxtStyle),
+                const SizedBox(
+                  height: 5,
                 ),
-                
-            
-  const SizedBox(
-              height: 5,
-            ),
-             
-                
               ],
-              
             ),
-            
           ),
-         
-          
-         
-            
         ],
       );
 
-
-        Widget Body(UserPost userpost) => Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
+  Widget Body(UserPost userpost) => Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-         
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
             child: Column(
-             
               children: [
                 Text(
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   userpost.contentbodypost,
-                   style: TextStyle(color: Colors.white),
-            
-                  
-                 
-              
+                  style: TextStyle(color: Colors.white),
                 ),
-                
-            
-  const SizedBox(
-              height: 5,
-            ),
-             
-                
+                const SizedBox(
+                  height: 5,
+                ),
               ],
-              
             ),
-            
           ),
-         
-          
-         
-            
         ],
       );
-      
-      
 
   Widget fetchComments() {
     return StreamBuilder<List<UserComment>>(
@@ -207,23 +162,17 @@ class _RedditCommentState extends State<RedditComment> {
           const SizedBox(
             height: 15,
           ),
-        
-   
-          
-
-            Container(
-                  child: ClipRRect(
+          Container(
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: FadeInImage.assetNetwork(
                 placeholder: 'assets/images/loading.gif',
                 image: userPost.postimg,
                 height: 250,
-              
               ),
             ),
-                ),
+          ),
           buttons(userPost),
-          
           fetchComments(),
         ],
       );
@@ -231,24 +180,17 @@ class _RedditCommentState extends State<RedditComment> {
   Widget usercommenterline(UserComment userComment) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
-        
         children: [
-           
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 5,
             ),
-            
-            child:    
-           read2(user.uid),
-           
+            child: read2(user.uid),
           ),
-         
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              
               Container(
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(0, 158, 158, 158),
@@ -256,48 +198,44 @@ class _RedditCommentState extends State<RedditComment> {
                     Radius.circular(20),
                   ),
                 ),
-           
                 child: Padding(
                   padding: const EdgeInsets.all(.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                   const SizedBox(
-            height: 2,
-          ),
+                      const SizedBox(
+                        height: 2,
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(left:40),
+                        padding: const EdgeInsets.only(left: 40),
                         child: Row(
                           children: [
-                            Text(userComment.commentcontent,style: TextStyle(color: Colors.white),)
+                            Text(
+                              userComment.commentcontent,
+                              style: TextStyle(color: Colors.white),
+                            )
                           ],
                         ),
                       ),
-                       Padding(
-                        padding: const EdgeInsets.only(left:20),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
                         child: Row(
-                          children: [
-                          
-            
-                          ],
+                          children: [],
                         ),
                       ),
-             
-           SizedBox(
-              height: 10,
-            ),
-           
+                      SizedBox(
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),
               ),
-             
             ],
           ),
         ],
       );
-        Widget read3(uid) {
+  Widget read3(uid) {
     var collection = FirebaseFirestore.instance.collection('Users1');
     return Column(
       children: [
@@ -316,7 +254,6 @@ class _RedditCommentState extends State<RedditComment> {
                   username: users['username'],
                   password: users['password'],
                   email: users['email'],
-                 
                   image: users['image'],
                 );
 
@@ -329,11 +266,11 @@ class _RedditCommentState extends State<RedditComment> {
         ),
       ],
     );
-    
   }
-   Widget buildUser3(Users1 user) => Container(
+
+  Widget buildUser3(Users1 user) => Container(
         child: Padding(
-          padding: const EdgeInsets.only(top:0),
+          padding: const EdgeInsets.only(top: 0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,34 +286,24 @@ class _RedditCommentState extends State<RedditComment> {
                       radius: 23,
                       backgroundColor: Colors.white,
                       backgroundImage: AssetImage(
-                'assets/images/flutter.png',
-              ),
+                        'assets/images/flutter.png',
+                      ),
                     ),
                   ),
-                  
-                    Padding(
-                    padding: const EdgeInsets.only(top:10),
-                child:
-                    Text(
-                    
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
                       '  r/',
-                    style: TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 255, 255, 255),
-                        
                       ),
                     ),
-               
-                     
-  
-                
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top:10),
-                child:
-                    Text(
-                    
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
                       'Flutter',
                       style: TextStyle(
                         fontSize: 15,
@@ -384,15 +311,10 @@ class _RedditCommentState extends State<RedditComment> {
                         color: Color.fromARGB(255, 241, 229, 229),
                       ),
                     ),
-               
-                     
-  
-                
                   ),
                   SizedBox(
                     width: 3,
                   ),
-                
                 ],
               ),
             ],
@@ -400,11 +322,9 @@ class _RedditCommentState extends State<RedditComment> {
         ),
       );
 
- 
   Widget buttons(UserPost userPost) => Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-   
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
@@ -412,7 +332,9 @@ class _RedditCommentState extends State<RedditComment> {
               children: [
                 TextButton.icon(
                   style: TextButton.styleFrom(
-                    primary: (!userPost.isLiked) ? Colors.grey : Color.fromARGB(255, 163, 63, 16),
+                    primary: (!userPost.isLiked)
+                        ? Colors.grey
+                        : Color.fromARGB(255, 163, 63, 16),
                   ),
                   onPressed: () {},
                   icon: const Icon(
@@ -421,7 +343,6 @@ class _RedditCommentState extends State<RedditComment> {
                   ),
                   label: const Text(''),
                 ),
-                
                 TextButton.icon(
                   style: TextButton.styleFrom(
                     primary: Colors.grey,
@@ -449,7 +370,6 @@ class _RedditCommentState extends State<RedditComment> {
               ],
             ),
           ),
-
         ],
       );
   Widget imgExist(img) => Container(
@@ -468,7 +388,7 @@ class _RedditCommentState extends State<RedditComment> {
         Icons.account_circle_rounded,
         size: 40,
       );
- Widget read(uid) {
+  Widget read(uid) {
     var collection = FirebaseFirestore.instance.collection('Users1');
     return Column(
       children: [
@@ -487,7 +407,6 @@ class _RedditCommentState extends State<RedditComment> {
                   username: users['username'],
                   password: users['password'],
                   email: users['email'],
-                 
                   image: users['image'],
                 );
 
@@ -501,6 +420,7 @@ class _RedditCommentState extends State<RedditComment> {
       ],
     );
   }
+
   Widget read2(uid) {
     var collection = FirebaseFirestore.instance.collection('Users1');
     return Column(
@@ -520,7 +440,6 @@ class _RedditCommentState extends State<RedditComment> {
                   username: users['username'],
                   password: users['password'],
                   email: users['email'],
-                 
                   image: users['image'],
                 );
 
@@ -534,8 +453,8 @@ class _RedditCommentState extends State<RedditComment> {
       ],
     );
   }
-  
-    Widget iconImgExist(img) => CircleAvatar(
+
+  Widget iconImgExist(img) => CircleAvatar(
         radius: 40,
         backgroundImage: NetworkImage(img),
       );
@@ -546,7 +465,7 @@ class _RedditCommentState extends State<RedditComment> {
       );
   Widget buildUser(Users1 user) => Container(
         child: Padding(
-          padding: const EdgeInsets.only(top:5),
+          padding: const EdgeInsets.only(top: 5),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -566,30 +485,20 @@ class _RedditCommentState extends State<RedditComment> {
                           : iconImgNotExist(),
                     ),
                   ),
-                  
-                    Padding(
-                    padding: const EdgeInsets.only(top:10),
-                child:
-                    Text(
-                    
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
                       '  r/',
-                    style: TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 255, 255, 255),
-                        
                       ),
                     ),
-               
-                     
-  
-                
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top:10),
-                child:
-                    Text(
-                    
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
                       'Flutter',
                       style: TextStyle(
                         fontSize: 15,
@@ -597,32 +506,24 @@ class _RedditCommentState extends State<RedditComment> {
                         color: Color.fromARGB(255, 241, 229, 229),
                       ),
                     ),
-               
-                     
-  
-                
                   ),
                   SizedBox(
                     width: 3,
                   ),
-              
                 ],
               ),
-
             ],
-            
           ),
         ),
       );
-      Widget buildUser2(Users1 user) => Container(
+  Widget buildUser2(Users1 user) => Container(
         child: Padding(
-          padding: const EdgeInsets.only(top:0),
+          padding: const EdgeInsets.only(top: 0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-               
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -637,30 +538,20 @@ class _RedditCommentState extends State<RedditComment> {
                           : iconImgNotExist(),
                     ),
                   ),
-                  
-                    Padding(
-                    padding: const EdgeInsets.only(top:5),
-                child:
-                    Text(
-                    
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Text(
                       '  u/',
-                    style: TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 255, 255, 255),
-                        
                       ),
                     ),
-               
-                     
-  
-                
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top:5),
-                child:
-                    Text(
-                    
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Text(
                       user.name,
                       style: TextStyle(
                         fontSize: 15,
@@ -668,32 +559,26 @@ class _RedditCommentState extends State<RedditComment> {
                         color: Color.fromARGB(255, 241, 229, 229),
                       ),
                     ),
-               
-                     
-  
-                
                   ),
-                
                 ],
               ),
             ],
           ),
         ),
       );
-      
+
   Widget userline(UserPost userpost) => Stack(
         children: [
           read3(user.uid),
-        
-       
         ],
       );
-      
-deleteUser(String id) {
+
+  deleteUser(String id) {
     final docUser = FirebaseFirestore.instance.collection('UserPost').doc(id);
     docUser.delete();
     Navigator.pop(context);
   }
+
   Widget postimage(UserPost userPost) => Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -702,24 +587,20 @@ deleteUser(String id) {
           Row(
             children: [
               Text(userPost.contentpost),
-   
             ],
           ),
-             Row(
+          Row(
             children: [
               Text(userPost.contentbodypost),
-   
             ],
           ),
           const SizedBox(
             height: 15,
           ),
-
-       
         ],
       ));
   var nametxtStyle = const TextStyle(
-  fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.bold,
     fontSize: 18,
     color: Color.fromARGB(255, 255, 255, 255),
   );
@@ -757,7 +638,7 @@ deleteUser(String id) {
             )
             .toList(),
       );
-      void _showActionSheet(BuildContext context, String id) {
+  void _showActionSheet(BuildContext context, String id) {
     showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
@@ -791,18 +672,11 @@ deleteUser(String id) {
           icon: const Icon(Icons.delete, size: 20),
           label: Text('Delete'),
         ),
-        
-
-        
-        
-      
         cancelButton: CupertinoActionSheetAction(
           child: const Text('Cancel'),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      
     );
   }
-
 }
