@@ -35,16 +35,15 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: ListView(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-             
               Padding(
-                padding: const EdgeInsets.only(left:180),
+                padding: const EdgeInsets.only(left: 180),
                 child: Image.asset(
                   'assets/images/reddit-logo.png',
                   width: 40,
@@ -52,15 +51,15 @@ class _LoginState extends State<Login> {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.push (
-                        context,
-                         MaterialPageRoute(
-                            builder: (context) => Register(),
-                          ),
-                      );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Register(),
+                      ),
+                    );
                   },
                   child: const Text(
-                    'Sign Up',
+                    'Pala iyot',
                     style: TextStyle(fontSize: 20, color: Colors.blue),
                   )),
             ],
@@ -71,7 +70,7 @@ class _LoginState extends State<Login> {
             children: const [
               Padding(
                 padding: EdgeInsets.only(left: 13),
-                child: Text("Log In",
+                child: Text("Si keanu",
                     style:
                         TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
               ),
@@ -98,10 +97,7 @@ class _LoginState extends State<Login> {
                       TextSpan(
                         text: 'User Agreement',
                         style: const TextStyle(color: Colors.blue),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                           
-                          },
+                        recognizer: TapGestureRecognizer()..onTap = () {},
                       ),
                       const TextSpan(
                         text: ' and ',
@@ -113,94 +109,82 @@ class _LoginState extends State<Login> {
                       TextSpan(
                         text: 'Privacy Policy.',
                         style: const TextStyle(color: Colors.blue),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                           
-                          },
+                        recognizer: TapGestureRecognizer()..onTap = () {},
                       ),
                     ],
                   ),
                 ),
               ),
-            const Divider(
+              const Divider(
                 color: Color.fromARGB(255, 231, 226, 226),
-                
                 thickness: 2,
-                
               ),
               const SizedBox(
                 height: 12,
               ),
               Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  child: TextField(
-                    controller: usernamecontroller,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Enter username',
-                    ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                child: TextField(
+                  controller: usernamecontroller,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter username',
                   ),
                 ),
+              ),
               const SizedBox(
                 height: 8,
               ),
               Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  child: TextField(
-                    controller: passwordcontroller,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Enter password',
-                    ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                child: TextField(
+                  controller: passwordcontroller,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter password',
                   ),
                 ),
-        
+              ),
               const SizedBox(
                 height: 15,
               ),
-             
-            Container(
-                  padding: const EdgeInsets.all(20),
-                  
-                  child: ElevatedButton.icon(
-                    
-                    icon: const Icon(
-                      Icons.lock_open,
-                    ),
-                    onPressed: () {
-                      signIn();
-                    },
-                    
-                    style: ElevatedButton.styleFrom(
-                      
-                      minimumSize: const Size.fromHeight(50),
-                     
-                    ),
-                    label: const Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.lock_open,
+                  ),
+                  onPressed: () {
+                    signIn();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  label: const Text(
+                    'LOGIN',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Text(
-                    error,
-                    style: const TextStyle(
-                      color: Colors.red,
-                    ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  error,
+                  style: const TextStyle(
+                    color: Colors.red,
                   ),
                 ),
+              ),
             ],
           ),
         ]),
@@ -225,8 +209,9 @@ class _LoginState extends State<Login> {
       );
       setState(() {
         error = "";
-        Fluttertoast.showToast(msg:"Login Succesfully");
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Tabs()));
+        Fluttertoast.showToast(msg: "Login Succesfully");
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const Tabs()));
       });
     } on FirebaseAuthException catch (e) {
       print(e);
