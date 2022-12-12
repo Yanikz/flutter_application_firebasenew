@@ -59,6 +59,7 @@ class _LoginState extends State<Login> {
                           ),
                       );
                   },
+                  
                   child: const Text(
                     'Sign Up',
                     style: TextStyle(fontSize: 20, color: Colors.blue),

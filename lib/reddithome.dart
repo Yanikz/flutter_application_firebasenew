@@ -514,6 +514,7 @@ class _RedditHomeState extends State<RedditHome> {
       'favorites': status,
     });
 
+
   }
   Widget iconImgExist(img) => CircleAvatar(
         radius: 40,
