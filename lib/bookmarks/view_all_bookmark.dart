@@ -2,25 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_firebasenew/bookmarks/view_all_bookmark.dart';
-import 'package:flutter_application_firebasenew/tabs.dart';
-
-import 'package:flutter_application_firebasenew/updatepost.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:flutter_application_firebasenew/redditcomment.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application_firebasenew/userpost.dart';
-import 'package:flutter_application_firebasenew/users1.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class RedditHome extends StatefulWidget {
-  const RedditHome({super.key});
+import '../redditcomment.dart';
+import '../updatepost.dart';
+import '../users1.dart';
+
+class ViewAllBookmark extends StatefulWidget {
+  const ViewAllBookmark({super.key});
 
   @override
-  State<RedditHome> createState() => _RedditHomeState();
+  State<ViewAllBookmark> createState() => _ViewAllBookmarkState();
 }
 
-class _RedditHomeState extends State<RedditHome> {
+class _ViewAllBookmarkState extends State<ViewAllBookmark> {
   final user = FirebaseAuth.instance.currentUser!;
 
   themeListener() {
@@ -44,7 +42,7 @@ class _RedditHomeState extends State<RedditHome> {
             bottom: TabBar(
               tabs: [
                 Tab(
-                  text: "Home",
+                  text: "Bookmark",
                 ),
               ],
             ),
@@ -298,28 +296,6 @@ class _RedditHomeState extends State<RedditHome> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ViewAllBookmark(),
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
-                                      'View Bookmark page',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
@@ -408,16 +384,19 @@ class _RedditHomeState extends State<RedditHome> {
     }
   }
 
-  Stream<List<UserPost>> readUserPost() =>
-      FirebaseFirestore.instance.collection('UserPost').snapshots().map(
-            (snapshot) => snapshot.docs
-                .map(
-                  (doc) => UserPost.fromJson(
-                    doc.data(),
-                  ),
-                )
-                .toList(),
-          );
+  Stream<List<UserPost>> readUserPost() => FirebaseFirestore.instance
+      .collection('UserPost')
+      .where('favorites', isEqualTo: true)
+      .snapshots()
+      .map(
+        (snapshot) => snapshot.docs
+            .map(
+              (doc) => UserPost.fromJson(
+                doc.data(),
+              ),
+            )
+            .toList(),
+      );
 
   updateLike(String id, bool status) {
     final docUser = FirebaseFirestore.instance.collection('UserPost').doc(id);
